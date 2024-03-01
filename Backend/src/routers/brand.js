@@ -1,0 +1,10 @@
+const route = require('express').Router();
+
+const brandController = require ('../app/controllers/BrandController');
+
+route.use('/add', brandController.addBrand)
+route.use('/allBrand', brandController.getAllBrand)
+
+
+
+module.exports = route;

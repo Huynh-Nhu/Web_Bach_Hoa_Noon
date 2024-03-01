@@ -1,0 +1,21 @@
+.form-brand{
+    margin: 150px auto;
+
+}
+.form-brand-content{
+    background-color: rgba(150, 213, 241, 0.405);
+    padding: 50px ;
+    border-radius: 25px;
+}
+
+.img-logo-brand{
+    width: 200px;
+}
+.img-null{
+    width: 200px;
+    border-radius: 20px;
+}
+.btn-brand{
+    text-align: center;
+    margin-top: 25px;
+}
