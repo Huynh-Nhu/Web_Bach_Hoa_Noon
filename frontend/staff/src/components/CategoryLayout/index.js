@@ -16,8 +16,8 @@ function CategoryLayout() {
     setcategory(categorys);
   }, [categorys]);
   useEffect(() => {
-    getAllCategory(dispatch);
-  }, [dispatch]);
+    getAllCategory(dispatch)
+  }, [modalShow, dispatch]);
   return (
     <div className="product-page position-relative">
       <h1>Loại sản phẩm</h1>

@@ -23,7 +23,6 @@ function BrandPage() {
   const handleImgBrandChange = (imgBrand) => {
     setImgBrand(imgBrand);
   };
-
   const handleAddBrand = async (e) => {
     e.preventDefault();
     setIsLoading(true)
@@ -33,7 +32,8 @@ function BrandPage() {
         nameBrand: nameBrand,
         imgBrand: files,
       };
-      const result = await addBrand(newBrand,dispatch);
+      const result = await addBrand(newBrand, dispatch);
+      
         setMessage(result);
         setShow(true)
         setIsLoading(false)
@@ -57,8 +57,8 @@ function BrandPage() {
         nameBrand={nameBrand}
         imgBrand={imgBrand}
         handleNameBrandChange={handleNameBrandChange}
-        handleAddBrand={handleAddBrand}
         handleImgBrandChange={handleImgBrandChange}
+        handleSubmit={handleAddBrand}
       />
       {isLoading ? (
           <div>

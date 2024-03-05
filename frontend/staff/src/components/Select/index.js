@@ -8,16 +8,17 @@ function Search(props) {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const brand = useSelector((state) => state.brands.getAllBrand?.allBrand);
-  const [isBrand, setIsBrand] = useState(brand)
+  const [isBrand, setIsBrand] = useState([])
   const dispatch = useDispatch();
   useEffect(() => {
-    getAllBrand(dispatch);
+    getAllBrand(dispatch)
+    setIsBrand(brand)
   }, [dispatch]);
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
     props.onchangeBrand(selectedOptions);
   };
-  const data = isBrand.map((brand) => {
+  const data = isBrand?.map((brand) => {
     return {value: brand._id, label: `${brand.codeBrand}: ${brand.nameBrand}`}
   })
   const customStyles = {

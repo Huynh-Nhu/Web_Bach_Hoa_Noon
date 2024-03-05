@@ -108,7 +108,7 @@ export const setPass = async (user, dispatch, axiosJWT, accessToken) => {
   }
 };
 
-export const addBrand = async (brand, dispatch) => {
+export const addBrand = async (brand,dispatch) => {
   try {
     const res = await axios.post("http://localhost:8080/brand/add", brand);
     // console.log(res.);

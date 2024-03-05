@@ -1,6 +1,14 @@
 .custom-card-detail {
+    position: relative;
     width: 100%;
     margin-bottom: 1rem;
+    padding: 10px 25px;
+    
+}
+.custom-card-detail a{
+    color: #000;
+    text-decoration: none;
+    text-align: center;
 }
 
 .custom-image-detail {
@@ -9,3 +17,21 @@
     object-fit:fill;
     
 }
+.add-icon-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .add-products {
+    font-size: 30px;
+  }

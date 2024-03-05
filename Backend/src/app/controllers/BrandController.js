@@ -41,6 +41,30 @@ const brandController = {
       console.log(error);
     }
   },
+  updateBrand: async (req, res) => {
+    try {
+      const { nameBrand, imgBrand, idBrand } = req.body;
+      let img = "";
+      const brand = await Brand.findById(idBrand);
+      console.log(img);
+      if (brand) {
+        if (typeof imgBrand === "object") {
+          img = imgBrand.toString();
+        } else {
+          img = imgBrand;
+        }
+
+        (brand.nameBrand = nameBrand), (brand.imgBrand = img);
+
+        await brand.save();
+        return res.status(200).json({ message: "Cập nhật thành công" });
+      }
+    } catch (error) {
+      // return res.status(200).json({message: "không cập nhật thành công"})
+
+      console.log(error);
+    }
+  },
 };
 
 module.exports = brandController;

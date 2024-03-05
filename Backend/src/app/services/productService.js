@@ -59,10 +59,8 @@ class ProductService {
     }
   }
   async getOneProduct(idProduct) {
-    console.log(idProduct);
     try {
       const product = await Products.findById(idProduct)
-      .populate('idCategory')
       .populate('idImageProduct')
       .populate('idProductDetails');
       return product

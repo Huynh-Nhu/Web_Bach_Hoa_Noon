@@ -12,7 +12,6 @@ function AddProduct({
   addSize,
   imageProduct,
   decription,
-  // quantity,
   nameProduct,
   handleNameChage,
   handleImageChange,
@@ -30,6 +29,7 @@ function AddProduct({
     const decription = e.target.value;
     handleDecriptionChange(decription);
   };
+
   const handleImagePreview = (acceptedFiles) => {
     const previewImages = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -44,15 +44,18 @@ function AddProduct({
     const updatePreview = [...imagePreview];
     updatePreview.splice(index, 1);
     setImagePreview(updatePreview);
+    handleImageProductChange(updatePreview)
+   
   };
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleImagePreview,
   });
   useEffect(() => {
-    if(imageProduct === undefined) {
-      setImagePreview([])
+    if (imageProduct === undefined) {
+      setImagePreview([]);
     }
-  }, [imageProduct])
+  }, [imageProduct]);
+ 
   return (
     <div>
       <Form onSubmit={handleSubmit}>
@@ -86,9 +89,29 @@ function AddProduct({
               </Form.Group>
               <Form.Group as={Col} controlId={`imgProduct${index}`}>
                 <Form.Label>Ảnh</Form.Label>
-                <Form.Control type = "file" onChange={(event) => handleImageChange(index,event.target.files[0])}>
-
-                </Form.Control>
+                <Form.Control
+                  type="file"
+                  onChange={(event) =>
+                    handleImageChange(index, event.target.files[0])
+                  }
+                ></Form.Control>
+                {size.img && (
+                  <div>
+                    {typeof size.img === "string" ? (
+                      <img
+                        src={size.img}
+                        alt="Hình ảnh sản phẩm"
+                        style={{ width: "100px", height: "150px" }}
+                      />
+                    ) : (
+                      <img
+                        src={URL.createObjectURL(size.img)}
+                        alt="Hình ảnh sản phẩm"
+                        style={{ width: "100px", height: "150px" }}
+                      />
+                    )}
+                  </div>
+                )}
               </Form.Group>
               <Form.Group as={Col} controlId={`quantityProduct${index}`}>
                 <Form.Label>Số lượng sản phẩm</Form.Label>
@@ -106,25 +129,16 @@ function AddProduct({
         <Button variant="primary" type="button" onClick={addSize}>
           Thêm size
         </Button>
-        {/* <Form.Group className="mb-3" controlId="quantityProduct">
-          <Form.Label>Số lượng sản phẩm</Form.Label>
-          <Form.Control
-            value={quantity}
-            onChange={handleQuantityChange}
-            type="text"
-          />
-        </Form.Group> */}
-
         <div className="image-upload-container" {...getRootProps()}>
           <input
-            multiple
             onChange={handleImageProductChange}
             accept=".png, .jpg, .jpeg"
             {...getInputProps()}
           />
           <p>Kéo và thả ảnh hoặc nhấp để chọn ảnh</p>
         </div>
-        {imagePreview.length > 0 && (
+
+        {imagePreview.length  > 0   ? (
           <div>
             <h5>Anh</h5>
             <div className="preview-container">
@@ -147,6 +161,18 @@ function AddProduct({
                 </div>
               ))}
             </div>
+          </div>
+        ) : (
+          <div className="preview-container">
+            {imageProduct?.map((imgURL, index) => (
+              <div key={index} className="image-preview">
+                <img
+                  className="image-product"
+                  src={imgURL}
+                  alt={`Image ${index}`}
+                />
+              </div>
+            ))}
           </div>
         )}
         <Form.Group className="mb-3" controlId="description">

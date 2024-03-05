@@ -4,6 +4,9 @@ const brandController = require ('../app/controllers/BrandController');
 
 route.use('/add', brandController.addBrand)
 route.use('/allBrand', brandController.getAllBrand)
+route.use('/updateBrand', brandController.updateBrand)
+
+
 
 
 

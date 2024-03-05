@@ -56,7 +56,7 @@ function Sidebar() {
             <Link to='/category' >
               Products
             </Link>
-            <Link to="/brand" >
+            <Link to="/listBrand" >
               Brand
             </Link>
           </div>

@@ -3,9 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../FormAddCategory/formAddCate.css";
 function FormCategory(props) {
-  const [imgCate, setImgCate] = useState(
-    "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"
-  );
+  const [imgCate, setImgCate] = useState();
   const onchangeNameCate = (e) => {
     const name = e.target.value;
     props.onchangeNameCategory(name);
@@ -17,18 +15,18 @@ function FormCategory(props) {
       setImgCate(URL.createObjectURL(img[0]));
     }
   };
-
   return (
-    <Form onSubmit={props.handleAddcategory}>
+    <Form onSubmit={props.handleSubmit}>
       <Form.Group className="mb-3" controlId="nameCategory">
         <Form.Label>Tên loại sản phẩm</Form.Label>
         <Form.Control
           onChange={onchangeNameCate}
           type="text"
           placeholder="Name"
+          value={props.nameCategory}
         />
       </Form.Group>
-      <Form.Group controlId="imgCate" className="mb-3">
+      <Form.Group controlId="imgCate" className="mb-3 ">
         <Form.Label>Ảnh Loại</Form.Label>
         <div className="input-group  rounded-pill  d-block">
           <input
@@ -51,7 +49,17 @@ function FormCategory(props) {
             </label>
           </div>
         </div>
-        <img className="img-cate     " src={imgCate} alt="Avatar" />
+
+        {imgCate === undefined  ? (
+          <div>
+            <img  className="img-cate " src={props.imgCategory} />
+          </div>
+        ) : (
+          <div>
+            
+            <img className="img-cate " src={imgCate} alt="Avatar" />
+          </div>
+        )} 
       </Form.Group>
 
       <div className="text-center">

@@ -34,18 +34,20 @@ function BrandLayout(props) {
           key={index}
           src={URL.createObjectURL(img)}
         />
-        
-        
       ));
     }
     return null;
   };
- 
+  useEffect(() => {
+    if (props.imgBrand === undefined) {
+      setImgLib([]);
+    }
+  }, [props.imgBrand]);
 
   return (
     <div className="form-brand contaier row">
       <div className="col-md-6 offset-md-3">
-        <Form onSubmit={props.handleAddBrand} className="form-brand-content">
+        <Form onSubmit={props.handleSubmit} className="form-brand-content">
           <Form.Group as={Row} className="mb-3" controlId="nameBrand">
             <Form.Label column sm={2}>
               Tên:
@@ -59,7 +61,7 @@ function BrandLayout(props) {
               />
             </Col>
           </Form.Group>
-  
+
           <Form.Group controlId="imgBrand" className="mb-3">
             <div className="input-group  rounded-pill  d-block">
               <input
@@ -82,17 +84,20 @@ function BrandLayout(props) {
                 </label>
               </div>
             </div>
-           
           </Form.Group>
-          {renderImg() ? 
-          <div>{renderImg()}</div> :
-          <img className="img-null" src="https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png" />
-          }
-         <div className="btn-brand">
+          {renderImg() ? (
+            <div>{renderImg()}</div>
+          ) : (
+            <img
+              className="img-null"
+              src={props.imgBrand}
+            />
+          )}
+          <div className="btn-brand">
             <Button variant="dark" type="submit">
               Submit
             </Button>
-         </div>
+          </div>
         </Form>
       </div>
     </div>

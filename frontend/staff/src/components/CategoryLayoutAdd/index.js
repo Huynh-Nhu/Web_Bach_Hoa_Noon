@@ -16,7 +16,9 @@ function CategoryLayoutAdd(props) {
   const [selectBrand, setSelectBrand] = useState([]);
   const [nameCategory, setNameCategory] = useState("");
   const [imgCategory, setImgCategory] = useState();
-  const [categoryDetails, setCategoryDetails] = useState([{ name: "" , img: null}]);
+  const [categoryDetails, setCategoryDetails] = useState([
+    { name: "", img: null },
+  ]);
   const [showAlert, setShowAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,25 +45,32 @@ function CategoryLayoutAdd(props) {
 
     setCategoryDetails(updatedCategoryDetails);
   };
-  
+
   const addCategoryDetals = () => {
-    setCategoryDetails([...categoryDetails, { name: "" , img: null}]);
+    setCategoryDetails([...categoryDetails, { name: "", img: null }]);
   };
- const imgArray = categoryDetails.map((imgDetails) => {
+  const imgArray = categoryDetails.map((imgDetails) => {
     return imgDetails.img;
- })
+  });
+  const resetInputs = () => {
+    setSelectBrand([])
+    setNameCategory("")
+    setImgCategory()
+    setCategoryDetails([
+      { name: "", img: null },
+    ])
+  }
   const handleAddcategory = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const imgCategoryDetails = await uploadFiles(imgArray)
-   const updatedCategoryDetails = categoryDetails.map((category, index) => {
-    return {
-      name: category.name,
-      img: imgCategoryDetails.thisUrl[index],
-    };
-  });
+    const imgCategoryDetails = await uploadFiles(imgArray);
+    const updatedCategoryDetails = categoryDetails.map((category, index) => {
+      return {
+        name: category.name,
+        img: imgCategoryDetails.thisUrl[index],
+      };
+    });
 
- 
     const files = await uploadFiles(imgCategory);
     const Select = selectBrand.map((category) => category.value);
     if (files) {
@@ -71,14 +80,15 @@ function CategoryLayoutAdd(props) {
         nameCategory: nameCategory,
         imgCategory: files.thisUrl,
       };
-      await addCategory(newCategory,dispatch).then((data) => {
+      await addCategory(newCategory, dispatch).then((data) => {
         setShowAlert(true);
         setIsLoading(false);
         setSuccessMessage(data);
-        setNameCategory("");
+        resetInputs()
       });
     }
   };
+
   return (
     <div>
       <Modal
@@ -106,15 +116,14 @@ function CategoryLayoutAdd(props) {
               />
               <Form.Control
                 type="file"
-                onChange={(event) => handleImageChange(index, event.target.files[0])}
-              >
-
-              </Form.Control>
-              
+                onChange={(event) =>
+                  handleImageChange(index, event.target.files[0])
+                }
+              ></Form.Control>
             </div>
           ))}
 
-          <button type="button" onClick={addCategoryDetals}>
+          <button type="button" className="btn btn-dark mt-3" onClick={addCategoryDetals}>
             Thêm danh mục
           </button>
           <FormCategory
@@ -122,7 +131,7 @@ function CategoryLayoutAdd(props) {
             imgCategory={imgCategory}
             onchangeNameCategory={onchangeNameCategory}
             onchangeImageCategory={onchangeImageCategory}
-            handleAddcategory={handleAddcategory}
+            handleSubmit={handleAddcategory}
           />
           {isLoading ? (
             <div>

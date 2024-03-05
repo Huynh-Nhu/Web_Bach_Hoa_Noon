@@ -19,7 +19,8 @@ const productSlice = createSlice({
         },
         getAllProductFailed: (state )=> {
             state.getAllProducts.error = true;
-        }
+        },
+    
     }
 })
 

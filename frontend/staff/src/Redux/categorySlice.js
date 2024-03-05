@@ -22,9 +22,9 @@ const categorySlice = createSlice({
       state.getAllCategory.isFetching = false;
       state.getAllCategory.error = true;
     },
-    addCategorySuccess: (state, action) => {
-      state.getAllCategory.allCate.push(action.payload);
-    }
+    // addCategorySuccess: (state, action) => {
+    //   state.getAllCategory.allCate.push(action.payload);
+    // }
   },
 });
 export const { getAllCateStart, getAllCateSuccess, getAllCateFailed ,addCategorySuccess} =

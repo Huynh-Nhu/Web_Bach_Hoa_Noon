@@ -3,6 +3,7 @@ const productService = require("../services/productService");
 const Products = require("../models/Products");
 const ProductDetails = require("../models/ProductDetails");
 const CategoryService = require("../services/CategoryService");
+const { ObjectId } = require("mongoose").Types;
 const productController = {
   addProduct: async (req, res) => {
     try {
@@ -46,8 +47,8 @@ const productController = {
           nameProduct: nameProduct,
           brandChonse: brandChonse,
         });
-
         const saveProducts = await productService.createProduct(product);
+        // console.log(saveProducts);
         return res
           .status(200)
           .json({ message: "Thêm sản phẩm thành công", saveProducts });
@@ -85,14 +86,114 @@ const productController = {
       return res.status(400).json(error);
     }
   },
-  getOneProduct: async (req, res) => {
+  updateProduct: async (req, res) => {
     try {
-      const idProduct = req.query.productId;
-      console.log(idProduct);
+      const {
+        idProduct,
+        idImageProduct,
+        idProductDetails,
+        nameProduct,
+        sizeProduct,
+        imageProduct,
+        decriptionProduct,
+        brandChonse,
+      } = req.body;
+      // console.log("update",req.body);
+
       const product = await productService.getOneProduct(idProduct);
-      return res.status(200).json(product);
+      if (!product) {
+        return res.status(404).json({ message: "Sản phẩm không tồn tại" });
+      }
+      product.nameProduct = nameProduct;
+      product.brandChonse = brandChonse;
+      await product.save();
+
+      const productDetailData = await ProductDetails.findById(idProductDetails);
+      productDetailData.sizeProducts = sizeProduct;
+      productDetailData.descriptionProducts = decriptionProduct;
+      await productDetailData.save();
+      console.log(productDetailData);
+      const imageProductData = await ImageProducts.findById(idImageProduct);
+      imageProductData.nameImageProduct = imageProduct;
+      await imageProductData.save();
+      return res.status(200).json({ message: "Cập nhật thành công" });
     } catch (error) {
+      console.log(error);
       return res.status(400).json(error);
+    }
+  },
+
+  deleteProduct: async (req, res) => {
+    try {
+      const { idProduct } = req.body;
+      const product = await productService.getOneProduct(idProduct);
+      if (product) {
+        product.state = false;
+        await product.save();
+        // console.log(product);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  resetProduct: async (req, res) => {
+    try {
+      const { idProduct } = req.body;
+      const product = await productService.getOneProduct(idProduct);
+      if (product) {
+        console.log(product.state);
+        product.state = true;
+        await product.save();
+        // console.log(product);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  deleteDetailProduct: async (req, res) => {
+    try {
+      const { idProduct, idSize } = req.body;
+      const updateProductDetails = await ProductDetails.findOneAndUpdate(
+        {
+          _id : idProduct,
+          "sizeProducts._id": idSize,
+
+        },
+        {
+          $set: {
+            "sizeProducts.$.state" : false,
+          },
+        },
+        {new: true}
+
+      );
+
+      console.log(updateProductDetails);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  resetDetailProduct: async (req, res) => {
+    try {
+      const { idProduct, idSize } = req.body;
+      const updateProductDetails = await ProductDetails.findOneAndUpdate(
+        {
+          _id : idProduct,
+          "sizeProducts._id": idSize,
+
+        },
+        {
+          $set: {
+            "sizeProducts.$.state" : true,
+          },
+        },
+        {new: true}
+
+      );
+
+      console.log(updateProductDetails);
+    } catch (error) {
+      console.log(error);
     }
   },
 };
