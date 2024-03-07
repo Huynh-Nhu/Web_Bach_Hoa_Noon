@@ -141,7 +141,6 @@ const productController = {
       const { idProduct } = req.body;
       const product = await productService.getOneProduct(idProduct);
       if (product) {
-        console.log(product.state);
         product.state = true;
         await product.save();
         // console.log(product);
@@ -155,20 +154,16 @@ const productController = {
       const { idProduct, idSize } = req.body;
       const updateProductDetails = await ProductDetails.findOneAndUpdate(
         {
-          _id : idProduct,
+          _id: idProduct,
           "sizeProducts._id": idSize,
-
         },
         {
           $set: {
-            "sizeProducts.$.state" : false,
+            "sizeProducts.$.state": false,
           },
         },
-        {new: true}
-
+        { new: true }
       );
-
-      console.log(updateProductDetails);
     } catch (error) {
       console.log(error);
     }
@@ -178,20 +173,28 @@ const productController = {
       const { idProduct, idSize } = req.body;
       const updateProductDetails = await ProductDetails.findOneAndUpdate(
         {
-          _id : idProduct,
+          _id: idProduct,
           "sizeProducts._id": idSize,
-
         },
         {
           $set: {
-            "sizeProducts.$.state" : true,
+            "sizeProducts.$.state": true,
           },
         },
-        {new: true}
-
+        { new: true }
       );
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getAll: async (req, res) => {
+    try {
+      const product = await Products.find()
+        .populate("idCategory")
+        .populate("idImageProduct")
+        .populate("idProductDetails");
 
-      console.log(updateProductDetails);
+      return res.status(200).json(product);
     } catch (error) {
       console.log(error);
     }

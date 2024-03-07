@@ -109,11 +109,9 @@ const StaffController ={
       try {
         // get refresh token from staff       
         const refresh = req.body.refreshToken;
-        console.log("refresh",refresh);
         if(!refresh)
           return res.status(401).json('you are not logged in')
 
-          console.log("rerefreshTokens",refreshTokens);
         if(!refreshTokens.includes(refresh)){
           return res.status(401).json('refresh token is not authorized')
         }
@@ -139,7 +137,10 @@ const StaffController ={
     logoutStaff: async(req, res) => {
       // refresh token clear
       const refresh = req.body.refreshToken;
-      refreshTokens = [];
+      const refreshTokenIndex = refresh.indexOf(refresh);
+      if(refreshTokenIndex !== -1) {
+        refreshTokens.splice(refreshTokenIndex, 1);
+      }
       return res.status(200).json('logged out')
     },
     

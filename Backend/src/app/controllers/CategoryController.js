@@ -35,7 +35,6 @@ const CategoryController = {
   getAllCategory: async (req, res) => {
     try {
       const allCategory = await CategoryService.getAllCate();
-      console.log(allCategory);
       return res.status(200).json(allCategory);
     } catch (error) {
       console.log(error);

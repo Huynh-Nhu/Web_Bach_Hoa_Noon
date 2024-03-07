@@ -17,7 +17,7 @@ function Sidebar() {
         setIsDropdownOpen(!isDropdownOpen)
     };
     const handleLogout = () => {
-      LogOut(dispatch,user?.accessToken,user?.refreshToken,navigate,axiosJWT);
+      LogOut(dispatch,navigate,user?.refreshToken,user?.accessToken,axiosJWT);
     }
   
   return (

@@ -1,7 +1,9 @@
 const route = require('express').Router();
 
 const productController = require('../app/controllers/prouductController');
+const router = require('./staff');
 
+route.use('/product', productController.getAll)
 route.use('/addProduct', productController.addProduct)
 route.use('/allProducts', productController.getAllProduct)
 route.use('/updateProduct', productController.updateProduct)

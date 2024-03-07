@@ -77,7 +77,8 @@ export const LogOut = async (
 ) => {
   dispatch(logoutStart());
   try {
-    await axiosJWT.post(
+    console.log(refreshToken);
+    const res = await axiosJWT.post(
       "http://localhost:8080/staffs/logout",
       { refreshToken: refreshToken },
       {
@@ -85,8 +86,12 @@ export const LogOut = async (
       }
     );
     dispatch(logoutSuccess());
-    navigate("/login");
+    if(res.data) {
+      navigate("/login");
+
+    }
   } catch (error) {
+    console.log(error);
     dispatch(logoutFailed());
   }
 };

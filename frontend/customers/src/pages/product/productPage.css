@@ -1,0 +1,16 @@
+.product-page {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar-product {
+    flex: 0 0 25%; /* Định kích thước của sidebar */
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: 100%;
+  }
+  
+  .content-product {
+    flex: 1; /* Tự mở rộng để lấp đầy không gian còn lại */
+    padding: 20px;
+  }
