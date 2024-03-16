@@ -1,0 +1,26 @@
+.product-detail-layout {
+    display: flex;
+    margin-top: 25px;
+    /* align-items: center; */
+}
+
+.image-section {
+    flex: 1;
+    border: 1px solid #0000003f;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 300px;
+}
+
+.price-section {
+    flex: 1;
+}
+
+.active {
+    background-color: rgb(111, 196, 219);
+    color: white;
+}

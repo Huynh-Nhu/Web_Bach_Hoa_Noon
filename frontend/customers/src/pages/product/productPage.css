@@ -14,3 +14,17 @@
     flex: 1; /* Tự mở rộng để lấp đầy không gian còn lại */
     padding: 20px;
   }
+  .brand-container {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo các hình ảnh xuất hiện trên nhiều dòng */
+    justify-content: center; /* Căn giữa các phần tử con theo chiều ngang */
+  }
+  
+  .brand-item {
+    margin: 10px; /* Khoảng cách giữa các phần tử */
+  }
+  
+  .img-brand {
+    width: 70px; /* Kích thước của hình ảnh */
+    height: 70px;
+  }

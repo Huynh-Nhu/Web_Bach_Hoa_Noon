@@ -1,0 +1,26 @@
+.img-detail-related {
+    width: 100%;
+    height: auto;
+  }
+  
+  .img-related {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    height: 170px; /* Adjust the height as needed */
+  }
+  
+  .img-content-related {
+    border: 1px solid #000000;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+  }
+  
+  .show-more-btn {
+    margin-top: 10px;
+  }

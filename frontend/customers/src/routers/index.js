@@ -1,13 +1,20 @@
 import Home from '../pages/Home';
 import Login from "../pages/Login"
 import NotFoundPage from '../pages/404';
-import ProductDeatail from '../pages/product';
+import Product from '../pages/product';
+import ProductDetail from "../pages/ProductDetail"
+import CartPage from "../pages/cartPage"
+import Register from '../pages/Register';
 // không cần đăng nhập vẫn xem được
 const publicRouters  = [
     {path: '/', component: Home},
     {path: '/login', component: Login, Layout: null},
-    {path: '/product', component: ProductDeatail},
-    {path: '*', component: NotFoundPage},
+    {path: '/register', component: Register, Layout: null},
+    {path: '/product', component: Product},
+    {path: '/productDetail', component: ProductDetail},
+    {path: '/cart', component: CartPage},
+    
+    {path: '*', component: NotFoundPage  ,Layout: null},
 
 
 

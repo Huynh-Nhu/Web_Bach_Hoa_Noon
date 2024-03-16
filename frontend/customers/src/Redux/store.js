@@ -4,6 +4,9 @@ import storage from "redux-persist/lib/storage";
 import authReduce from "./authSlice";
 import categoryReduce from "./categorySlice"
 import productReduce from "./productSlice"
+import brandReduce from "./brandSlice"
+import detailRedue from "./detailSlice"
+import cardReduce from "./cardSlice"
 import {
   persistStore,
   persistReducer,
@@ -25,6 +28,9 @@ const rootReducer = combineReducers({
   loginCustom: authReduce,
   category: categoryReduce,
   product : productReduce,
+  brands : brandReduce,
+  detail: detailRedue,
+  card : cardReduce
   
 });
 

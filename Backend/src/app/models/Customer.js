@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Address = require("./Address");
 
 const customerScheme = new mongoose.Schema({
   nameCustomer: {
@@ -24,6 +25,10 @@ const customerScheme = new mongoose.Schema({
   membershipLevel: {
     type: String,
     default: "membership",
+  },
+  idAddress: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Address,
   },
   avatarCustomer: {
     type: String,

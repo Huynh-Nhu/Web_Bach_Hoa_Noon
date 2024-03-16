@@ -1,7 +1,8 @@
 const Brand = require("../models/Brand");
 const brandService = require("../services/BrandService");
 const randomstring = require("randomstring");
-
+const Category = require("../models/Category");
+const CategoryService = require("../services/CategoryService");
 const brandController = {
   addBrand: async (req, res) => {
     try {
@@ -35,6 +36,8 @@ const brandController = {
   },
   getAllBrand: async (req, res) => {
     try {
+      // const {isID} = req.body
+      // console.log(isID);
       const allBrand = await brandService.findAllBrand();
       return res.status(200).json(allBrand);
     } catch (error) {
@@ -62,6 +65,15 @@ const brandController = {
     } catch (error) {
       // return res.status(200).json({message: "không cập nhật thành công"})
 
+      console.log(error);
+    }
+  },
+  getBrand: async (req, res) => {
+    try {
+      const categoryId = req.query.isID;
+      const brand = await Category.findById(categoryId).populate("codeBrand");
+      return res.status(200).json(brand);
+    } catch (error) {
       console.log(error);
     }
   },

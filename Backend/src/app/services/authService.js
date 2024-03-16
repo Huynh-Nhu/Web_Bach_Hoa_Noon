@@ -113,11 +113,27 @@ class AuthService {
     }
   }
   //login customer
+  async findOneCustomerEmail(email) {
+    try {
+      const foundUser = await Customer.findOne({ emailCustomer: email });
+      return foundUser;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async findOneCustomerPhone(phone) {
+    try {
+      const foundUser = await Customer.findOne({ phoneCustomer: phone });
+      return foundUser;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
   async findOneCustomer(emailOrPhone) {
     try {
       const foundUser = await Customer.findOne({
         $or: [{ emailCustomer: emailOrPhone }, { phoneCustomer: emailOrPhone }],
-      });
+      }).populate('idAddress');
       return foundUser;
     } catch (error) {
       throw new Error(error);

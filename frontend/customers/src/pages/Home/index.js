@@ -1,5 +1,7 @@
 import "../Home/home.css";
 import { useEffect, useState } from "react";
+import { getProductCart } from "../../service/apiCustomer";
+
 import { getProduct } from "../../service/apiCustomer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -7,34 +9,36 @@ import { Card, Button } from "react-bootstrap";
 function HomePage() {
   const [showMore, setShowMore] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation()
   const productHome = useSelector(
     (state) => state.product?.allProduct?.productData
   );
+  console.log(productHome);
   const category = useSelector(
     (state) => state.category?.allCategory?.categoryData
+  );
+  const customer = useSelector(
+    (state) => state.loginCustom?.login?.currentCustomer
   );
   const handleShowMore = () => {
     setShowMore(true);
   };
   useEffect(() => {
+    getProductCart(customer?.customer?._id, dispatch);
     getProduct(dispatch);
   }, [dispatch]);
   return (
     <div className="">
       <div className="cate-home ">
-        {category.map((categoryData, index) => (
+        {category?.map((categoryData, index) => (
           <div key={index}>
-            
             <div className="name-cate-content ">
-              
               <h3 className="name-category">{categoryData?.nameCategory}</h3>
             </div>
             {!showMore && (
               <Link
                 to={{
                   pathname: "/product",
-                  search: `?id=${categoryData._id}&category=${categoryData.nameCategory}`
+                  search: `?id=${categoryData._id}&category=${categoryData.nameCategory}`,
                 }}
               >
                 <div className="btn-container">
@@ -44,30 +48,39 @@ function HomePage() {
                 </div>
               </Link>
             )}
-            <div className="d-flex justify-content-between card-container ">
+            <div className="d-flex card-container ">
               {productHome
                 .filter(
                   (product) => product.idCategory?._id === categoryData?._id
                 )
-                .slice(0, showMore ? productHome.length : 4)
-                .map((prt, i) => (
-                  <Card key={i} className="product-card">
-                    <Card.Img
-                      variant="top"
-                      src={prt?.idImageProduct?.nameImageProduct}
-                      className="card-img-top"
-                    />
-                    <Card.Body>
-                      <Card.Text className="card-title">
-                        {prt.nameProduct}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                ))}
-              
+                .slice(0, showMore ? productHome.length : 5)
+                .map((prt, i) =>
+                  prt.idProductDetails?.sizeProducts.slice(0, 1)
+                  
+                  .map((item, index) => (
+                   <Link to={{
+                    pathname: "/productDetail",
+                    search: `?id=${prt._id}&idDetail=${item._id}`
+                   }}>
+                      <Card className="mx-3" key={index}>
+                        <Card.Img
+                          variant="top"
+                          src={item.img}
+                          className="card-img-top"
+                        />
+                        <Card.Body>
+                          <Card.Text className="card-title">
+                            {prt.nameProduct} <span> {item.size} </span>
+                          </Card.Text>
+                        </Card.Body>
+                        {/* <p>Size:</p>
+                          <p>Price: {item.price}</p> */}
+                      </Card>
+                   </Link>
+                  ))
+                )}
             </div>
             <hr />
-            
           </div>
         ))}
       </div>

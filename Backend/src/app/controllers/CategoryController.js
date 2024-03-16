@@ -42,7 +42,6 @@ const CategoryController = {
   },
   updateCategory: async (req, res) => {
     try {
-      console.log(req.body);
       const {
         nameBrand,
         categoryDetails,

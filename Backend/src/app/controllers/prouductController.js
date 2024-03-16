@@ -112,7 +112,6 @@ const productController = {
       productDetailData.sizeProducts = sizeProduct;
       productDetailData.descriptionProducts = decriptionProduct;
       await productDetailData.save();
-      console.log(productDetailData);
       const imageProductData = await ImageProducts.findById(idImageProduct);
       imageProductData.nameImageProduct = imageProduct;
       await imageProductData.save();
@@ -195,6 +194,23 @@ const productController = {
         .populate("idProductDetails");
 
       return res.status(200).json(product);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  getProductDetail: async (req, res) => {
+    try {
+      const id = req.query.id;
+      const productDetail = req.query.productDetail;
+      const product = await Products.findById(id)
+      .populate("idProductDetails")
+      .populate("idCategory")
+      const products = product.idCategory.nameCategory
+      // const filter = product.idProductDetails.sizeProducts.filter((pro) => pro._id === productDetail)
+      // console.log(filter);
+    
+      return res.status(200).json({product, products});
     } catch (error) {
       console.log(error);
     }
