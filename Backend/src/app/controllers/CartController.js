@@ -28,12 +28,14 @@ const CardController = {
         existingCartDetail.quantityCart += carts.quantity;
         await existingCartDetail.save();
       } else {
+        let price = parseFloat(carts.price.replace(/,/g, ""));
+        console.log(carts.price);
         // Nếu CartDetail chưa tồn tại trong giỏ hàng, tạo mới và thêm vào giỏ hàng
         existingCartDetail = new CartDetail({
           idCart: cart._id,
           idProduct: carts.id_product,
           quantityCart: carts.quantity,
-          price: carts.price,
+          price: price,
           idProductDetailSize: carts._id,
         });
 
@@ -186,6 +188,16 @@ const CardController = {
     }
   },
 
+  deleteAllCart: async (req, res) => { 
+    try {
+      const {idCart} = req.body
+
+      await CartDetail.deleteMany({ idCart: idCart });
+      await Cart.deleteOne({ _id: idCart });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   // Gọi hàm deleteCartItem
 };
 

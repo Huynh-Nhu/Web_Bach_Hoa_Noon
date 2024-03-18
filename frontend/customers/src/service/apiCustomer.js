@@ -146,12 +146,25 @@ export const deleteCart = async (itemId) => {
   }
 }
 
-export const addPay = async (idUser) => {
+export const addPay = async (idUser, address , phone) => {
   try {
     const res = await axios.post("http://localhost:8080/pay/address", {
-      idUser: idUser
+      idUser: idUser , address: address , phone : phone
+    })
+    return res.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export const deleteCartAll = async (id) => {
+  try {
+    const res = await axios.post("http://localhost:8080/cart/deleteAll", {
+      idCart: id
     })
   } catch (error) {
     console.log(error);
   }
+
 }

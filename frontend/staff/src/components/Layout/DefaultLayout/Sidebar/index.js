@@ -59,6 +59,9 @@ function Sidebar() {
             <Link to="/listBrand" >
               Brand
             </Link>
+            <Link to="/order">
+              List Order
+            </Link>
           </div>
         </li>
 

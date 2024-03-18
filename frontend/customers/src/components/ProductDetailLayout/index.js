@@ -10,6 +10,7 @@ function ProductDetailLayout(props) {
   const [price, setPrice] = useState("");
   const [priceNew, setPriceNew] = useState()
 
+ 
   const handleClickSize = (size) => {
     const selectedProduct = detail?.idProductDetails?.sizeProducts.find(
       (product) => product._id === size._id
@@ -23,7 +24,7 @@ function ProductDetailLayout(props) {
         ...selectedSize,
         productName: detail.nameProduct,
         quantity: quantity,
-        price: parseFloat(priceNew ),
+        price: priceNew,
         id_product: detail._id,
         id_user: props.customer?.customer?._id
       };
@@ -36,10 +37,9 @@ function ProductDetailLayout(props) {
       setQuantity(newQuantity);
     }
   };
-  // console.log(price);
   useEffect(() => {
     const newPrice = (price * quantity  * 1000 )
-    setPriceNew(parseFloat(newPrice))
+    setPriceNew(parseFloat(newPrice).toLocaleString())
   }, [quantity, selectedSize]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function ProductDetailLayout(props) {
   }, [selectedSize]);
 
   useEffect(() => {
-    const current = detail.idProductDetails?.sizeProducts.find(
+    const current = detail?.idProductDetails?.sizeProducts?.find(
       (size) => size._id === idDetail
     );
     setPrice(current?.price);
@@ -61,8 +61,8 @@ function ProductDetailLayout(props) {
   }
 
   if (!currentSize) {
-    return <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+    return <div className="spinner-border" role="status">
+    <span className="visually-hidden">Loading...</span>
   </div>
   }
 

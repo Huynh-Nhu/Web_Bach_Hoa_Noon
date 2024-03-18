@@ -69,7 +69,7 @@ function UpdateProductPage() {
     updatedSizes[index] = sizeCopy;
     setSizes(updatedSizes);
   };
-
+console.log(sizes);
   const handleImageChange = (index, value) => {
     const updatedSizes = [...sizes];
     const sizeCopy = Object.assign({}, updatedSizes[index]);
@@ -85,6 +85,7 @@ function UpdateProductPage() {
     setSizes(updatedSizes);
   };
   const addSize = () => {
+  
     setSizes([...sizes, { size: "", price: "", img: null, quantity: "" }]);
   };
   const handleImageProductChange = (img) => {
@@ -101,7 +102,9 @@ function UpdateProductPage() {
     setIsLoading(true);
     const imgProductDetails = await uploadFiles(imgArray);
     const updatedProductDetails = sizes.map((product, i) => {
+      console.log(product._id);
       return {
+        _id: product._id, 
         size: product.size,
         price: product.price,
         quantity: product.quantity,

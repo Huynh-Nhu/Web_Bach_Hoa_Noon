@@ -70,6 +70,20 @@ class ProductService {
       throw new Error(error);
     }
   }
+
+  async updateProduct  (productId, updatedData) {
+    try {
+      const product = await Products.findById(productId);
+      if (!product) {
+        throw new Error("Sản phẩm không tồn tại");
+      }
+  
+      Object.assign(product, updatedData);
+      await product.save();
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = new ProductService();

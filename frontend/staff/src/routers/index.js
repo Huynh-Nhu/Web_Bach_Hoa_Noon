@@ -12,6 +12,7 @@ import UpdateProductPage from '../pages/updateProduct';
 import UpdateCategory from '../pages/updateCategory';
 import ListBrand from '../pages/ListBrand';
 import UpdateBrand from '../pages/updateBrand';
+import OrderPage from '../pages/Order';
 // không cần đăng nhập vẫn xem được
 const publicRouters  = [
     {path: '/', component: Home},
@@ -21,8 +22,6 @@ const publicRouters  = [
     {path: '/passStaff', component: setPassword},
     {path: '/brand', component: Brand},
     {path: '/listBrand', component: ListBrand},
-
-
     {path: '/category', component: ProductCategory},
     {path: '/:id/product', component: Product},
     {path: '/productAdd', component: ProductAdd},
@@ -30,6 +29,8 @@ const publicRouters  = [
     {path: '/updateProduct', component: UpdateProductPage},
     {path: '/updateCategory', component: UpdateCategory},
     {path: '/updateBrand', component: UpdateBrand},
+    {path: '/order', component: OrderPage},
+
 
 
 

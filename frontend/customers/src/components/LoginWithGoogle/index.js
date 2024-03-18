@@ -21,9 +21,9 @@ function LoginWithGoogle() {
   }, [])
   return (
    
-      <div >
-        <div id="signInDiv"></div>
-      </div>
+     
+        <div style={{margin: "25px"}} id="signInDiv"></div>
+     
     
   );
 }

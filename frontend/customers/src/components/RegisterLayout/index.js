@@ -1,5 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 function RegisterLayout(props) {
   const {
     nameCustomer,
@@ -17,57 +20,78 @@ function RegisterLayout(props) {
 
   const handleNameCustomerChange = (e) => {
     const name = e.target.value;
-    handleNameCustomer(name)
-  }
+    handleNameCustomer(name);
+  };
 
   const handlePasswordCustomerChange = (e) => {
     const password = e.target.value;
-    handlePasswordCustomer(password)
-  }
+    handlePasswordCustomer(password);
+  };
 
   const handleEmailCustomerChange = (e) => {
     const email = e.target.value;
-    handleEmailCustomer(email)
-  }
+    handleEmailCustomer(email);
+  };
 
   const handleAddressCustomerChange = (e) => {
     const address = e.target.value;
-    handleAddressCustomer(address)
-  }
+    handleAddressCustomer(address);
+  };
 
   const handlePhoneCustomerChange = (e) => {
     const phone = e.target.value;
-    handlePhoneCustomer(phone)
-  }
+    handlePhoneCustomer(phone);
+  };
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="nameRegister">
-        <Form.Label>Ten</Form.Label>
-        <Form.Control value={nameCustomer} onChange={handleNameCustomerChange} type="text" placeholder="" />
+        <Form.Control
+          sm={8}
+          value={nameCustomer}
+          placeholder=" Nhập tên tài khỏan"
+          onChange={handleNameCustomerChange}
+          type="text"
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="phoneRegister">
-        <Form.Label>SĐT</Form.Label>
-        <Form.Control value={phoneCustomer} onChange={handlePhoneCustomerChange} type="text" placeholder="" />
+        <Form.Control
+          value={phoneCustomer}
+          onChange={handlePhoneCustomerChange}
+          type="text"
+          placeholder="Nhập số điện thoại "
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="emailRegister">
-        <Form.Label>Emails</Form.Label>
-        <Form.Control value={emailCustomer} onChange={handleEmailCustomerChange} type="email" placeholder="" />
+        <Form.Control
+          value={emailCustomer}
+          onChange={handleEmailCustomerChange}
+          type="email"
+          placeholder="Nhập email "
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="addressRegister">
-        <Form.Label>Địa chỉ</Form.Label>
-        <Form.Control value={nameAddress} onChange={handleAddressCustomerChange} type="text" placeholder="" />
+        <Form.Control
+          value={nameAddress}
+          onChange={handleAddressCustomerChange}
+          type="text"
+          placeholder="Nhập địa chỉ"
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="passwordRegister">
-        <Form.Label>Password</Form.Label>
-        <Form.Control value={passwordCustomer} onChange={handlePasswordCustomerChange} type="password" placeholder="" />
+        <Form.Control
+          value={passwordCustomer}
+          onChange={handlePasswordCustomerChange}
+          type="password"
+          placeholder="Nhập mật khẩu cho tài khoản"
+        />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Submit
+      <Button variant="dark" type="submit">
+        Đăng ký
       </Button>
     </Form>
   );

@@ -5,8 +5,10 @@
     padding: 10px;
   }
   
-  .logo {
-    font-weight: bold;
+  .logo img {
+    /* font-weight: bold; */
+    height: 70px;
+    border-radius: 5px;
   }
   
   .search {

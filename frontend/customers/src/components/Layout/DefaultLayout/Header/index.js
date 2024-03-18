@@ -9,7 +9,9 @@ function Header() {
   return (
     <div className="container ">
       <div className="header">
-        <Link to="/"><div className="logo">Logo</div></Link>
+        <Link to="/"><div className="logo">
+          <img src="/assets/logo/noon.png" />
+          </div></Link>
         <div className="search">Search</div>
         <Link  to="/cart"><div className="cart">
             <InconCart/>

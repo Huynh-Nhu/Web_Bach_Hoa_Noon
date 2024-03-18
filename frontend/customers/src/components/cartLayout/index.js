@@ -4,12 +4,14 @@ import "../cartLayout/cartLayou.css";
 import PayLayout from "../PayLayout";
 import Address from "../Address";
 import PaymentMethod from "../PaymentMethod";
+import PhoneSetting from "../Phone";
 
 function CartLayout(props) {
   const { productCart, handleUpdateCart, customer, handleDelete } = props;
-  // console.log(customer.customer.idAddress.nameAddress);
+  console.log(customer);
   const [productCartState, setProductCartState] = useState(productCart);
   const [address, setAddress] = useState(customer.customer?.idAddress?.nameAddress);
+  const [phone, setPhone] = useState(customer.customer?.phoneCustomer);
   const handleQuantityChange = async (itemId, newQuantity) => {
     try {
       const itemIndex = productCartState.findIndex(
@@ -46,6 +48,11 @@ function CartLayout(props) {
   const handleAddressSave = (address) => {
     setAddress(address)
   }
+
+  const handlePhoneSave = (phone) => {
+    setPhone(phone)
+  }
+
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     productCartState.forEach((item) => {
@@ -58,18 +65,19 @@ function CartLayout(props) {
       <div className=" col-6 mt-3 ">
         <h3>Cart</h3>
         <div className="cart-info-user">
-          <Address customer={customer} address={address} handleAddressSave={handleAddressSave}/>
+          <Address  address={address} handleAddressSave={handleAddressSave}/>
+         <PhoneSetting  phone={phone} handlePhoneSave={handlePhoneSave}/>
           <p>Mã khách hàng: {customer.customer._id} </p>
           <p>Khách hàng : {customer.customer.nameCustomer}</p>
           <p>Email: {customer.customer.emailCustomer}</p>
           <p>Hạng:{customer.customer.membershipLevel}</p>
         </div>
         <hr />
-       <PaymentMethod/>
+       <PaymentMethod calculateTotalPrice={calculateTotalPrice} productCartState={productCartState} phone={phone} address={address} customer={customer}/>
         <hr/>
         <div className="row">
           <div className="col-6">
-            <PayLayout address={address} customer={customer} />
+            {/* <PayLayout address={address} customer={customer} /> */}
           </div>
           <div className="col-6">
             <p className="total">Tổng: {calculateTotalPrice()}</p>

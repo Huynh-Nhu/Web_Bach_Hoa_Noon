@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+// import imgLogin from "/public/assets/login.svg"
 function LoginLayout(props) {
   const handleChangeEmailPhone = (e) => {
     const email = e.target.value;
@@ -12,41 +13,43 @@ function LoginLayout(props) {
     props.handlePassword(password);
   };
   return (
-    <Form onSubmit={props.handlSubmit}>
-      <Form.Group as={Row} className="mb-3" controlId="emailCustomer">
-        <Form.Label column sm={2}>
-          Email hoăc SĐT
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            value={props.nameCustomer}
-            type="text"
-            placeholder="Email"
-            onChange={handleChangeEmailPhone}
-          />
-        </Col>
-      </Form.Group>
+    <div className="login-form" >
+      
+      <Form onSubmit={props.handlSubmit}>
+        <Form.Group as={Row} className="" controlId="emailCustomer">
+         
+          <Col sm={12}>
+            <Form.Control
+              value={props.nameCustomer}
+              type="text"
+              placeholder=" Email or SĐT"
+              onChange={handleChangeEmailPhone}
 
-      <Form.Group as={Row} className="mb-3" controlId="passwordCustomer">
-        <Form.Label column sm={2}>
-          Password
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            value={props.passwordCustomer}
-            type="password"
-            placeholder="Password"
-            onChange={handleChangePassword}
-          />
-        </Col>
-      </Form.Group>
+            />
+          </Col>
+        </Form.Group>
+  
+        <Form.Group as={Row} className="mt-3" controlId="passwordCustomer">
+         
+          <Col sm={12}>
+            <Form.Control
+              value={props.passwordCustomer}
+              type="password"
+              placeholder="Password"
+              onChange={handleChangePassword}
+            />
+          </Col>
+        </Form.Group>
+  
+        <Form.Group as={Row} className="mt-3">
+          <Col sm={{ span: 8, offset: 2 }}>
+            <Button className="btn-dark" type="submit">Đăng Nhập</Button>
+          </Col>
+        </Form.Group>
 
-      <Form.Group as={Row} className="mb-3">
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Button type="submit">Sign in</Button>
-        </Col>
-      </Form.Group>
-    </Form>
+        
+      </Form>
+    </div>
   );
 }
 

@@ -10,7 +10,6 @@ function ProductDetail() {
   const dispatch = useDispatch();
   const[isId, setId] = useState("")
   const [idDetail, setIdDetail] = useState("");
-  const [cart, setCart] = useState([]);
   const [related, setRelated] = useState([]);
   const [showRelated, setShowRelated] = useState(false);
   const navigate = useNavigate()
@@ -18,19 +17,17 @@ function ProductDetail() {
     (state) => state?.loginCustom?.login?.currentCustomer
   );
   const detail = useSelector(
-    (state) => state.detail?.allDetail?.detailData.product
+    (state) => state.detail?.allDetail?.detailData?.product
   );
   const nameDetail = useSelector(
-    (state) => state.detail?.allDetail?.detailData.products
+    (state) => state.detail?.allDetail?.detailData?.products
   );
 
   const product = useSelector(
     (state) => state.product?.allProduct?.productData
   );
-  // console.log(product);
 
   const addCart = (product) => {
-    // setCart([product]);
     if(customer) {
 
       addProductCart(product)
@@ -52,7 +49,7 @@ function ProductDetail() {
         setShowRelated(true)
       });
     }
-  }, [location, dispatch,nameDetail,product]);
+  }, [location, dispatch,nameDetail,product,]);
   useEffect(() => {
     if(detail) {
       const productRelated = product.filter((item) =>

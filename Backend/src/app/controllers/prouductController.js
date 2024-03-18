@@ -98,23 +98,35 @@ const productController = {
         decriptionProduct,
         brandChonse,
       } = req.body;
-      // console.log("update",req.body);
-
+  
       const product = await productService.getOneProduct(idProduct);
       if (!product) {
         return res.status(404).json({ message: "Sản phẩm không tồn tại" });
       }
-      product.nameProduct = nameProduct;
-      product.brandChonse = brandChonse;
-      await product.save();
-
-      const productDetailData = await ProductDetails.findById(idProductDetails);
-      productDetailData.sizeProducts = sizeProduct;
-      productDetailData.descriptionProducts = decriptionProduct;
-      await productDetailData.save();
-      const imageProductData = await ImageProducts.findById(idImageProduct);
-      imageProductData.nameImageProduct = imageProduct;
-      await imageProductData.save();
+  
+      // Cập nhật thông tin sản phẩm
+      await productService.updateProduct(idProduct, {
+        nameProduct,
+        brandChonse,
+      });
+  
+      // Cập nhật thông tin chi tiết sản phẩm
+      await ProductDetails.findOneAndUpdate(
+        { _id: idProductDetails },
+        {
+          sizeProducts: sizeProduct,
+          descriptionProducts: decriptionProduct,
+        }
+      );
+  
+      // Cập nhật thông tin hình ảnh sản phẩm
+      await ImageProducts.findOneAndUpdate(
+        { _id: idImageProduct },
+        {
+          nameImageProduct: imageProduct,
+        }
+      );
+  
       return res.status(200).json({ message: "Cập nhật thành công" });
     } catch (error) {
       console.log(error);
