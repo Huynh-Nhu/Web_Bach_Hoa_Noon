@@ -62,8 +62,8 @@ function BrandLayout(props) {
             </Col>
           </Form.Group>
 
-          <Form.Group controlId="imgBrand" className="mb-3">
-            <div className="input-group  rounded-pill  d-block">
+          <Form.Group controlId="imgBrand" className="mb-3 ">
+            <div className="input-group form-brand-edit  rounded-pill ">
               <input
                 id="upload"
                 name="imageProduct"
@@ -82,22 +82,21 @@ function BrandLayout(props) {
                     Update Image
                   </small>
                 </label>
+                <div className="btn-brand">
+                  <Button variant="dark" type="submit">
+                    Cập Nhật
+                  </Button>
+                </div>
+              </div>
+              <div className="mx-4">
+                {renderImg() ? (
+                  <div>{renderImg()}</div>
+                ) : (
+                  <img className="img-null" src={props.imgBrand} />
+                )}
               </div>
             </div>
           </Form.Group>
-          {renderImg() ? (
-            <div>{renderImg()}</div>
-          ) : (
-            <img
-              className="img-null"
-              src={props.imgBrand}
-            />
-          )}
-          <div className="btn-brand">
-            <Button variant="dark" type="submit">
-              Submit
-            </Button>
-          </div>
         </Form>
       </div>
     </div>

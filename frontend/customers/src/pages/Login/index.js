@@ -1,11 +1,12 @@
-import LoginWithGoogle from "../../components/LoginWithGoogle";
-// import LoginLayout from "../../components/LoginLayout";
 import { useState } from "react";
-import LoginLayout from "../../components/loginLayout";
 import { loginCustomers } from "../../service/apiCustomer";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LoginWithGoogle from "../../components/LoginWithGoogle";
+import LoginLayout from "../../components/loginLayout";
 
 import "../Login/loginPage.css";
 
@@ -27,8 +28,22 @@ function LoginPage() {
       emailOrPhone: nameCustomer,
       password: passwordCustomer,
     };
-    loginCustomers(newCustomer, dispatch, navigate);
+    loginCustomers(newCustomer, dispatch, navigate)
+      .then((data) => {
+        toast.error(data, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+         
+        });
+      })
+      
   };
+
   return (
     <div className="login-page row ">
       <div className="login-form-container col-md-6 offset-md-3 align-self-center ">
@@ -53,6 +68,10 @@ function LoginPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      <div>
+        <ToastContainer />
       </div>
     </div>
   );

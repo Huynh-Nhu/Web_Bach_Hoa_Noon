@@ -5,6 +5,8 @@ import CartNotFound from "../../components/cartNotFound";
 import { deleteCart, getProductCart, updateQuantity } from "../../service/apiCustomer";
 import { useNavigate } from "react-router-dom";
 import { cardSuccess } from "../../Redux/cardSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CartPage() {
   const [cartShow, setCartShow] = useState([]);
@@ -19,7 +21,16 @@ function CartPage() {
 
   useEffect(() => {
     if (customer === null) {
-      alert("Vui lòng đăng nhập trước");
+      toast.error("Vui lòng đăng nhập trước", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+       
+      });
       navigate("/login");
       return;
     }
@@ -69,17 +80,25 @@ function CartPage() {
     return <p>Loading...</p>;
   }
 
-  return cartShow?.length > 0 ? (
-    <CartLayout
-      customer={customer}
-      cart={cart}
-      productCart={cartShow}
-      handleUpdateCart={handleUpdateCart}
-      handleDelete={handleDelete}
-    />
-  ) : (
-    <CartNotFound />
-  );
+  return (
+    <div>
+    {  cartShow?.length > 0 ? (
+      <CartLayout
+        customer={customer}
+        cart={cart}
+        productCart={cartShow}
+        handleUpdateCart={handleUpdateCart}
+        handleDelete={handleDelete}
+      />
+    ) : (
+      <CartNotFound />
+    )}
+     <div>
+        <ToastContainer />
+      </div>
+    </div>
+  )
+  
 }
 
 export default CartPage;

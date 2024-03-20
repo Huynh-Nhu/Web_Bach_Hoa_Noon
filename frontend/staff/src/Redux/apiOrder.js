@@ -9,3 +9,14 @@ export const getAllOrder = async (dispatch) => {
         console.log(error);
     }
 }
+
+export const confirmOrder = async (idOrder , idStaff) => {
+    try {
+        const res= await axios.post("http://localhost:8080/order/confirmOrder", {
+            idOrder: idOrder, idStaff: idStaff
+        })
+        return res.data.message
+    } catch (error) {
+        console.log(error);
+    }
+}

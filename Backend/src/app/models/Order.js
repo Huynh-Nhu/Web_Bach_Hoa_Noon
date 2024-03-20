@@ -25,6 +25,9 @@ const Order = new mongoose.Schema({
     dayShip: {
         type: String,
     },
+    payMethod: {
+        type: String,
+    },
     status: {  type: String,
         default: "Đang chờ xử lý"
     }

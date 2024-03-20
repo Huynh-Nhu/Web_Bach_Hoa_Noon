@@ -13,7 +13,7 @@ function ModalMessage(props) {
       <Modal.Header closeButton>
         <Modal.Title></Modal.Title>
       </Modal.Header>
-      <Modal.Body>{message}</Modal.Body>
+      <Modal.Body className="text-center">{message}</Modal.Body>
       <Modal.Footer></Modal.Footer>
     </Modal>
   );

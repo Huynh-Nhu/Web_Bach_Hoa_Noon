@@ -4,12 +4,13 @@ const Customer = require("../models/Customer");
 const Order = require("../models/Order");
 const OrderDetail = require("../models/OrderDetail");
 const ProductDetails = require("../models/ProductDetails");
+const PaypalService = require("../services/paypal")
 const Products = require("../models/Products");
-
 const payController = {
   addOrder: async (req, res) => {
     try {
-      const { idUser, address, phone } = req.body;
+      const { idUser, address, phone , paymentOption } = req.body;
+      console.log(paymentOption);
       const user = await Customer.findById(idUser).populate("idAddress");
       if (user.phoneCustomer === undefined) {
         user.phoneCustomer = phone;
@@ -74,7 +75,7 @@ const payController = {
         }
       }
 
-      const orderDetail = new OrderDetail({
+      const orderDetail = new OrderDetail({ 
         orderDetail: cartItem,
       });
       const orderDetailSave = await orderDetail.save();
@@ -82,6 +83,7 @@ const payController = {
       const newOrder = new Order({
         idUser: idUser,
         idStaff: null,
+        payMethod: paymentOption,
         idOrderDetail: orderDetail._id,
         dayOrder: new Date().toISOString(),
         dayCurrent: null,
@@ -97,6 +99,29 @@ const payController = {
       console.log(error);
     }
   },
+
+  apiPaypal: async (req, res) => {
+    try {
+      // const cart = JSON.parse(req.body)
+      // const { cart } = req.body;
+      console.log(req.body);
+      const {jsonResponse, httpStatusCode} = await PaypalService.createOrder(req.body);
+      res.status(httpStatusCode).json(jsonResponse)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  capture: async (req, res) => { 
+    try {
+      const { orderID } = req.body;
+      const { jsonResponse, httpStatusCode } = await PaypalService.captureOrder(orderID);
+      res.status(httpStatusCode).json(jsonResponse);
+    } catch (error) {
+      console.error("Failed to create order:", error);
+      res.status(500).json({ error: "Failed to capture order." });
+    }
+  }
 };
 
 module.exports = payController;

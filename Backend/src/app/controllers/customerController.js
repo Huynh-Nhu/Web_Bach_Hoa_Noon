@@ -108,6 +108,7 @@ const customerController = {
           .json({ message: "Success login customer", customer, accessToken });
       }
     } catch (error) {
+      
       console.log("cannot login customer", error);
     }
   },

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import InforCustomer from "../../../InforCutomer";
 import "../Header/header.css";
 import InconCart from "../../../inconCart";
-import { useSelector } from "react-redux";
 
 function Header() {
  

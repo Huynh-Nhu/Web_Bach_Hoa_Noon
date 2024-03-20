@@ -1,21 +1,32 @@
 .form-brand{
     margin: 150px auto;
+    height: 100hv;
 
 }
 .form-brand-content{
     background-color: rgba(150, 213, 241, 0.405);
     padding: 50px ;
     border-radius: 25px;
+    
 }
-
+.form-brand-edit{
+    justify-content: center;
+    display: flex;
+}
 .img-logo-brand{
     width: 200px;
+    
 }
 .img-null{
+    margin-left: 25px;
     width: 200px;
+
     border-radius: 20px;
 }
 .btn-brand{
     text-align: center;
     margin-top: 25px;
+}
+.sum-brand span {
+    color: #d55353;
 }

@@ -86,6 +86,7 @@ function UpdateBrand() {
           <Spinner className="load-brand" animation="grow" />
         </div>
       ) : (
+        
         <ModalForm message={message} show={show} handleClose={handleClose} />
       )}
     </div>

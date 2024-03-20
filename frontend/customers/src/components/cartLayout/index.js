@@ -52,13 +52,12 @@ function CartLayout(props) {
   const handlePhoneSave = (phone) => {
     setPhone(phone)
   }
-
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     productCartState.forEach((item) => {
       totalPrice += parseInt(calculateItemPrice(item).replace(/,/g, ""));
     });
-    return totalPrice.toLocaleString();
+    return totalPrice;
   };
   return (
     <div className="row justify-content-center ">
@@ -80,7 +79,7 @@ function CartLayout(props) {
             {/* <PayLayout address={address} customer={customer} /> */}
           </div>
           <div className="col-6">
-            <p className="total">Tổng: {calculateTotalPrice()}</p>
+            <p className="total">Tổng: {calculateTotalPrice().toLocaleString()}</p>
           </div>
         </div>
       </div>

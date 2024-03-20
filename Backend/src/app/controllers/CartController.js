@@ -59,6 +59,7 @@ const CardController = {
 
       // Lưu giỏ hàng đã cập nhật vào cơ sở dữ liệu
       await cart.save();
+      return res.status(200).json({message: "Thêm thành công"})
     } catch (error) {
       console.log(error);
     }
