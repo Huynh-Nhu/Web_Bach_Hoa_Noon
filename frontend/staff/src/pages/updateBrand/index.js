@@ -72,7 +72,7 @@ function UpdateBrand() {
   }, [location]);
 
   return (
-    <div>
+    <div >
       <BrandLayout
         nameBrand={nameBrand}
         imgBrand={imgBrand}

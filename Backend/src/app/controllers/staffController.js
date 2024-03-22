@@ -10,6 +10,7 @@ const authService = require('../services/authService');
 const sendEmail = require("../services/sendEmail");
 const config = require('../config/index');
 const { use } = require("passport");
+const Authorities = require("../models/Authorities");
 
 let refreshTokens = [];
 const StaffController ={
@@ -98,7 +99,8 @@ const StaffController ={
           
         refreshTokens.push(refreshToken)
         const {passwordStaff, ...orthers} = staff._doc;
-        return res.status(200).json({message: 'Chào bạn đến với Noon', ...orthers,accessToken,refreshToken});
+        const auth = authorities.nameAuth;
+        return res.status(200).json({message: 'Chào bạn đến với Noon', ...orthers,accessToken,refreshToken, auth});
       } catch (error) {
         console.log('cannot login staff', error);
       }
@@ -148,11 +150,8 @@ const StaffController ={
      getAllStaff:async (req,res)=> {
       try {
         const staff = await authService.findAllStaff();
-        const StaffNew = staff.map((item) => {
-          const { passwordStaff, ...rest } = item._doc;
-          return rest;
-        });
-        return res.status(200).json(StaffNew);
+       
+        return res.status(200).json(staff);
       } catch (error) {
         console.log('can not get all staff', error);
       }
@@ -166,6 +165,31 @@ const StaffController ={
         console.log('can not delete staff', error);
       }
     },
+
+    updateStaff: async (req, res) => {
+      try {
+        const { staff } = req.body;
+        const auth = await Authorities.findById(staff.id).populate("idStaff");
+        console.log(auth);
+        if (!auth) {
+          return res.status(404).json({ error: "Authorities not found" });
+        }
+        auth.nameAuth = staff.nameAuth;
+    
+        const updatedAuth = await auth.save();
+        const updatedStaff = await Staff.findByIdAndUpdate(auth.idStaff._id, {
+          nameStaff: staff.idStaff.nameStaff,
+          phoneStaff: staff.idStaff.phoneStaff,
+          emailStaff: staff.idStaff.emailStaff,
+          addressStaff: staff.idStaff.addressStaff
+        });
+        return res.status(200).json({message: "Cập nhật thành công"});
+        
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
     
 }  
 

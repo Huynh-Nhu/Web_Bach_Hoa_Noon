@@ -17,7 +17,7 @@ function ListProductPage() {
   const [refresh, setRefresh] = useState(false);
   const [idSize, setIdSize] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const productsPerPage = 4;
+  const productsPerPage = 6;
   const product = useSelector(
     (state) => state.products.getAllProducts?.allProduct
   );
@@ -64,7 +64,6 @@ function ListProductPage() {
     setRefresh(!refresh);
 
   };
-  // console.log(product.idProductDetails?.sizeProducts);
   return (
     <div>
       <ListProductLayout

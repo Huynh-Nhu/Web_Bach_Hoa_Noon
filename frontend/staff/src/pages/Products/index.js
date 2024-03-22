@@ -21,7 +21,7 @@ function ProductPage() {
   }, [location, categoryDetails]);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const cardPerPage = 3;
+  const cardPerPage = 6;
   const totalPages = Math.ceil(oneDetail?.categoryDetails?.length / cardPerPage) || 0;
   useEffect(() => {
     setCurrentPage(0);
@@ -40,7 +40,7 @@ function ProductPage() {
 
   return (
     <div>
-      <div className="row row-cols-1 row-cols-md-3 g-4 m-0">
+      <div className="row row-cols-1 row-cols-md-3 g-4 m-0" style={{height: "85vh"}}>
         {currentCards?.map((detail, idx) => (
           <div className="col" key={idx}>
             <Card className="custom-card-detail">

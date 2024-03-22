@@ -12,6 +12,8 @@ router.use('/login', staffController.loginStaff )
 
 //
 // router.use('/avatar', setStaffController.setAvatar)
+router.use('/updateStaff',middlewareController.verifyTokenAndAdmin,staffController.updateStaff )
+
 router.use('/setPass',middlewareController.verifyTokenAndAdmin,setStaffController.setPasswordStaff )
 
 // refresh

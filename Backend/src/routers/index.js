@@ -6,6 +6,7 @@ const ProductRouter = require('./products')
 const CartRouter = require('./cart')
 const PayRouter = require('./pay')
 const OrderRouter = require('./order')
+const ShipperRouter = require('./shipper')
 function route(app) {
     app.use('/staffs',staffRouter )
     app.use('/customer',customerRouter)
@@ -15,6 +16,9 @@ function route(app) {
     app.use('/cart',CartRouter )
     app.use('/pay',PayRouter )
     app.use('/order', OrderRouter )
+    app.use('/shipper', ShipperRouter )
+
+
 
 
     

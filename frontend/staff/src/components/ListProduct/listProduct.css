@@ -19,15 +19,16 @@
   position: relative; /* Điều chỉnh chiều cao tối đa của phần tử cha */
 }
 
-/* .description {
-  margin-top: 10px;
-  height: 250px;
-  width: 250px;
-  overflow: auto;
+.icon-trash{
+  color: red;
+  font-size: 20px;
 }
+.icon-edit-product{
+  color: green;
+  font-size: 20px;
 
-.description-detail{
-  height: 800px;
-  width: 2000px;
-  padding: 10px;
-} */
+}
+.icon-refresh{
+  color: rgb(255, 136, 0);
+  
+}

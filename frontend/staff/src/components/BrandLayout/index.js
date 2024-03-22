@@ -46,58 +46,63 @@ function BrandLayout(props) {
 
   return (
     <div className="form-brand contaier row">
-      <div className="col-md-6 offset-md-3">
-        <Form onSubmit={props.handleSubmit} className="form-brand-content">
-          <Form.Group as={Row} className="mb-3" controlId="nameBrand">
-            <Form.Label column sm={2}>
-              Tên:
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                value={props.nameBrand}
-                onChange={handleNameChange}
-                type="text"
-                placeholder=""
-              />
-            </Col>
-          </Form.Group>
+      <div className=" row content-brand ">
+        <div className="col-6 m-0 " style={{alignSelf: "center"}}>
+          <div className="img-brand-update">
+            {renderImg() ? (
+              <div>{renderImg()}</div>
+            ) : (
+              <img className="img-null" src={props.imgBrand} />
+            )}
+          </div>
+        </div>
+        <div className="col-6 m-0">
+          <Form onSubmit={props.handleSubmit} className="form-brand-content">
+            <Form.Group as={Row} className="mb-3" controlId="nameBrand">
+              <Form.Label column sm={2}>
+                Tên:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  value={props.nameBrand}
+                  onChange={handleNameChange}
+                  type="text"
+                  placeholder=""
+                />
+              </Col>
+            </Form.Group>
 
-          <Form.Group controlId="imgBrand" className="mb-3 ">
-            <div className="input-group form-brand-edit  rounded-pill ">
-              <input
-                id="upload"
-                name="imageProduct"
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                onChange={handleImg}
-                className="form-control d-none"
-              />
-              <div className="input-group-append">
-                <label
-                  htmlFor="upload"
-                  className="btn btn-light m-0 rounded-pill px-4"
-                >
-                  <i className="fa fa-cloud-upload mr-2 text-muted"></i>
-                  <small className="text-uppercase font-weight-bold text-muted">
-                    Update Image
-                  </small>
-                </label>
-                <div className="btn-brand">
-                  <Button variant="dark" type="submit">
-                    Cập Nhật
-                  </Button>
+            <Form.Group controlId="imgBrand" className="mb-3 ">
+              <div className="input-group form-brand-edit  rounded-pill ">
+                <input
+                  id="upload"
+                  name="imageProduct"
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={handleImg}
+                  className="form-control d-none"
+                />
+                <div className="input-group-append">
+                  <label
+                    htmlFor="upload"
+                    className="btn btn-light m-0 rounded-pill px-4"
+                  >
+                    <i className="fa fa-cloud-upload mr-2 text-muted"></i>
+                    <small className="text-uppercase font-weight-bold text-muted">
+                      Update Image
+                    </small>
+                  </label>
+                  <div className="btn-brand">
+                    <Button type="submit">
+                      Cập Nhật
+                    </Button>
+                  </div>
                 </div>
+                <div className="mx-4"></div>
               </div>
-              <div className="mx-4">
-                {renderImg() ? (
-                  <div>{renderImg()}</div>
-                ) : (
-                  <img className="img-null" src={props.imgBrand} />
-                )}
-              </div>
-            </div>
-          </Form.Group>
-        </Form>
+            </Form.Group>
+          </Form>
+        </div>
       </div>
     </div>
   );

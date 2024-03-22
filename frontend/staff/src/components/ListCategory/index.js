@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function CardCategory(props) {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const cardPerPage = 3;
+  const cardPerPage = 6;
   const lengthCategory = props.category && props.category.length;
   const totalPages = Math.ceil(lengthCategory / cardPerPage);
 
@@ -22,10 +22,10 @@ function CardCategory(props) {
   const indexOfFisrtCard = indexOfLasCard - cardPerPage;
   const currentCards = props.category?.slice(indexOfFisrtCard, indexOfLasCard);
   return (
-    <div>
-      <div className="card-category-container">
+    <div  >
+      <div className="card-category-container" >
         {currentCards?.map((cate, index) => (
-          <Card className="custom-card" key={index} style={{ width: "18rem" }}>
+          <Card className="custom-card" key={index} style={{ width: "30%" }}>
             <Link to={{
               pathname: "/updateCategory",
               search: `?id=${cate._id}`

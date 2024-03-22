@@ -8,7 +8,6 @@ function OrderPage() {
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order.getAllOrder.allOrder);
   const idStaff = useSelector((state) => state.auth?.login?.currentUser?._id);
-console.log(idStaff);
   const handleConfirm = (idOrder) => {
     confirmOrder(idOrder, idStaff).then(() => {
       getAllOrder(dispatch)

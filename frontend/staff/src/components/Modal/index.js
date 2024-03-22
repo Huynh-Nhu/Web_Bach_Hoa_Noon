@@ -10,7 +10,6 @@ function ModalForm(props) {
       contentClassName="modal-mess-content"
     >
       <Modal.Header closeButton>
-        <Modal.Title></Modal.Title>
       </Modal.Header>
       <Modal.Body>{props.message}</Modal.Body>
       <Modal.Footer></Modal.Footer>

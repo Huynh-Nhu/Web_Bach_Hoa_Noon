@@ -68,6 +68,20 @@ export const getAllStaff = async (accessToken, dispatch, axiosJWT) => {
   }
 };
 
+export const updateStaff = async (staff, accessToken, axiosJWT) => {
+  try {
+    const res = await axiosJWT.post(
+      "http://localhost:8080/staffs/updateStaff",
+      {
+        staff: staff,
+      },
+      { headers: { token: `Bearer ${accessToken}` } }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const LogOut = async (
   dispatch,
   navigate,
@@ -86,9 +100,8 @@ export const LogOut = async (
       }
     );
     dispatch(logoutSuccess());
-    if(res.data) {
+    if (res.data) {
       navigate("/login");
-
     }
   } catch (error) {
     console.log(error);
@@ -113,14 +126,13 @@ export const setPass = async (user, dispatch, axiosJWT, accessToken) => {
   }
 };
 
-export const addBrand = async (brand,dispatch) => {
+export const addBrand = async (brand, dispatch) => {
   try {
     const res = await axios.post("http://localhost:8080/brand/add", brand);
     // console.log(res.);
-    dispatch(addBrandSuccess(res.data.Brand))
+    dispatch(addBrandSuccess(res.data.Brand));
     return res.data.message;
     // console.log(res.data);
-
   } catch (error) {
     console.log("error addBrand", error);
   }

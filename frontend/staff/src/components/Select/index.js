@@ -10,10 +10,7 @@ function Search(props) {
   const brand = useSelector((state) => state.brands.getAllBrand?.allBrand);
   const [isBrand, setIsBrand] = useState([])
   const dispatch = useDispatch();
-  useEffect(() => {
-    getAllBrand(dispatch)
-    setIsBrand(brand)
-  }, [dispatch]);
+  
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
     props.onchangeBrand(selectedOptions);
@@ -30,6 +27,10 @@ function Search(props) {
       outline: "none",
     }),
   };
+  useEffect(() => {
+    getAllBrand(dispatch)
+    setIsBrand(brand)
+  }, [dispatch]);
   return (
     <div>
       <div className="mt-1 mb-3">

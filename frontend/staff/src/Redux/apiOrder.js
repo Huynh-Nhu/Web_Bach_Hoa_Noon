@@ -20,3 +20,13 @@ export const confirmOrder = async (idOrder , idStaff) => {
         console.log(error);
     }
 }
+
+export const sendShipper = async (idShipper, idOrder) => {
+    try {
+        const res = await axios.post("http://localhost:8080/order/sendShipper", {
+            idShipper: idShipper, idOrder: idOrder
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}

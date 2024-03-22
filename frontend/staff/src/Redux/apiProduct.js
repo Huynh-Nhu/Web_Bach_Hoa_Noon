@@ -16,6 +16,7 @@ import {
   getAllProductStart,
   getAllProductSuccess,
 } from "./productSlice";
+import { shipperSuccess } from "./shipperSlice";
 
 export const getAllBrand = async (dispatch) => {
   dispatch(getAllBrandStart());
@@ -180,6 +181,15 @@ export const resertProduct = async (idProduct) => {
     }
   };
 
+  export const getShipper = async (dispatch) => {
+    try {
+      console.log("pppp");
+      const res = await axios.get("http://localhost:8080/shipper/getShipper")
+      dispatch(shipperSuccess(res.data))
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 

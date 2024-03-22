@@ -102,9 +102,7 @@ const payController = {
 
   apiPaypal: async (req, res) => {
     try {
-      // const cart = JSON.parse(req.body)
-      // const { cart } = req.body;
-      console.log(req.body);
+      
       const {jsonResponse, httpStatusCode} = await PaypalService.createOrder(req.body);
       res.status(httpStatusCode).json(jsonResponse)
       

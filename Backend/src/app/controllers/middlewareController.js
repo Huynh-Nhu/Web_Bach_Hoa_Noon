@@ -33,4 +33,5 @@ const MiddlewareController = {
     }
 }
 
+
 module.exports = MiddlewareController;

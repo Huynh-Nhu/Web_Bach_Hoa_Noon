@@ -72,11 +72,29 @@ class AuthService {
   // get all staff
   async findAllStaff() {
     try {
-      const authorities = await Authorities.find({ nameAuth: "Nhân viên" })
-        .populate("idStaff")
+      const authorities = await Authorities.find({ nameAuth: { $ne: "admin" } })
+        .populate({
+          path: "idStaff",
+
+          select: "-passwordStaff",
+        })
         .exec();
 
-      return authorities.map((authority) => authority.idStaff);
+      return authorities;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async findShipper() {
+    try {
+      const shippers = await Authorities.find({ nameAuth: "shipper" })
+      .populate(
+        {
+          path: "idStaff",
+          select: "nameStaff",
+        }
+      ).exec();
+      return shippers;
     } catch (error) {
       throw new Error(error);
     }
@@ -133,7 +151,7 @@ class AuthService {
     try {
       const foundUser = await Customer.findOne({
         $or: [{ emailCustomer: emailOrPhone }, { phoneCustomer: emailOrPhone }],
-      }).populate('idAddress');
+      }).populate("idAddress");
       return foundUser;
     } catch (error) {
       throw new Error(error);

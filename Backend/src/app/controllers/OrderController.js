@@ -7,7 +7,6 @@ const orderController = {
   getAllOrderAdmin: async (req, res) => {
     try {
       const getAllOrder = await OrderService.getAll();
-      console.log(getAllOrder);
       const ordersWithAddress = [];
       for (const order of getAllOrder) {
         const orderDetail = order.idOrderDetail.orderDetail;
@@ -85,12 +84,34 @@ const orderController = {
         { new: true }
       );
   
-      console.log(updatedOrder);
       return res.status(200).json({message: "Cập nhật thành công"})
       
     } catch (error) {
       console.log(error);
       
+    }
+  },
+
+  sendShipper: async (req, res) => {
+    try {
+      const { idShipper, idOrder } = req.body;
+      console.log(idShipper, idOrder);
+      
+      // Kiểm tra đơn hàng có idShipper hay chưa
+      const ordersToUpdate = await Order.find({ _id: { $in: idOrder }, idShipper: { $exists: false } });
+  
+      if (ordersToUpdate.length === 0) {
+        console.log("Đơn hàng đã có idShipper, không thể thêm");
+        return res.status(400).json({ error: "Đơn hàng đã có idShipper, không thể thêm." });
+      }
+  
+      // Cập nhật shipper cho các đơn hàng có id trùng khớp
+      await Order.updateMany({ _id: { $in: idOrder }, idShipper: { $exists: false } },  { $set: { status: "Đã gửi Ship", idShipper: idShipper } });
+  
+      res.status(200).json({ message: "Gán shipper cho các đơn hàng thành công." });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Lỗi máy chủ nội bộ." });
     }
   }
 };

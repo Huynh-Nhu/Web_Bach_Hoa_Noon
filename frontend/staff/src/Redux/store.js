@@ -6,6 +6,7 @@ import brandReduce from "./brandSlice"
 import categoryReduce from "./categorySlice";
 import ProductReduce from "./productSlice"
 import orderReduce from "./orderSlice"
+import shipperReduce from "./shipperSlice";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   category: categoryReduce,
   products: ProductReduce,
   order: orderReduce,
+  shipper: shipperReduce,
 
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
