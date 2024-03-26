@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardHeader, Modal } from "react-bootstrap";
-import { getAllOrder, sendShipper } from "../../Redux/apiOrder";
+import Spinner from "react-bootstrap/Spinner";
 
+import { getAllOrder } from "../../Redux/apiOrder";
+import { sendShipper } from "../../Redux/apiShipper";
 import Shipper from "../Shipper";
+import "../Orderlayout/orderLayout.css";
 import { useDispatch } from "react-redux";
 
 function Orderlayout(props) {
-  const dispatch = useDispatch()
-  const { order, handleConfirm } = props;
+  const dispatch = useDispatch();
+  const { order, handleConfirm, loading , setLoading } = props;
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [show, setShow] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -46,16 +49,25 @@ function Orderlayout(props) {
     }
   };
 
-  const handleSendShipper = (idShipper, idOrder) =>{
+  const handleSendShipper = (idShipper, idOrder) => {
+    setLoading(true);
     sendShipper(idShipper, idOrder).then(() => {
-      getAllOrder(dispatch)
+      getAllOrder(dispatch);
+      setSelectedItems([]);
+      setShow(false);
+      setLoading(false);
     });
-
-  }
+  };
   return (
     <div>
-      <div>
-        <button onClick={handleShow}>Chọn shipper</button>
+      <div className="header-order">
+        <div className="btn-shipper">
+          {" "}
+         {loading && <Spinner className="spinner-order" variant="light" animation="grow" />}
+          <button onClick={handleShow}>
+            <i className="fa-solid fa-truck"></i>
+          </button>
+        </div>
         <Shipper
           selectedItems={selectedItems}
           show={show}
@@ -63,30 +75,13 @@ function Orderlayout(props) {
           handleSendShipper={handleSendShipper}
         />
       </div>
-      <div className="table-responsive text-center">
+      <div className="table-responsive text-center table-order">
         <table className="table  align-middle">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">
-                {order.some((item) => item.status === "Đã xác nhận đơn")? (
-                  <th>
-                    <input
-                      type="checkbox"
-                      checked={selectedItems?.length === order.length}
-                      onChange={() => {
-                        if (selectedItems.length === order.length) {
-                          setSelectedItems([]);
-                        } else {
-                          const allOrderIds = order.map((item) => item._id);
-                          setSelectedItems(allOrderIds);
-                        }
-                      }}
-                    />
-                  </th>
-                ): (
-                 <th> check</th>
-                )}
+                <th> check</th>
               </th>
               <th scope="col">Tên khách hàng</th>
               <th scope="col">Số điện thoại</th>
@@ -106,17 +101,15 @@ function Orderlayout(props) {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 {item.status === "Đã xác nhận đơn" ? (
-                 <td>
+                  <td>
                     <input
                       type="checkbox"
                       checked={selectedItems.includes(item._id)}
                       onChange={() => handleSelectOrder(item._id)}
                     />
-                 </td>
-                ) : (
-                  <td>
-                   
                   </td>
+                ) : (
+                  <td></td>
                 )}
                 <td>{item.idUser?.nameCustomer}</td>
                 <td>{item.idUser?.phoneCustomer}</td>
@@ -137,9 +130,7 @@ function Orderlayout(props) {
                     <span>{item.idStaff?.nameStaff}</span>
                   )}
                 </td>
-                <td>
-                  {item?.idShipper?.nameStaff}
-                </td>
+                <td>{item?.idShipper?.nameStaff}</td>
                 <td className="">
                   <button
                     className="btn btn-primary"
@@ -148,61 +139,24 @@ function Orderlayout(props) {
                   >
                     Xem
                   </button>
-
-                  <Modal show={selectedOrder !== null} onHide={closeModal}>
-                    <Modal.Header closeButton></Modal.Header>
-                    <Modal.Body>
-                      {selectedOrder !== null &&
-                        order[selectedOrder]?.orderDetail?.map(
-                          (product, index) => (
-                            <Card key={index} className="mb-3">
-                              <CardHeader>
-                                {product?.nameProduct} -{" "}
-                                <span>{product?.idProduct.size}</span>
-                              </CardHeader>
-                              <CardBody className=" ">
-                                <div
-                                  className="d-flex "
-                                  style={{ alignItems: "center" }}
-                                >
-                                  <img
-                                    src={product?.idProduct.img}
-                                    style={{ width: "100px" }}
-                                  />
-                                  <p className="mx-3">
-                                    Số lương:{" "}
-                                    <span style={{ color: "red" }}>
-                                      {product.idProduct.quantityOrder}
-                                    </span>
-                                  </p>
-
-                                  <p className="mx-3">
-                                    Thành tiền:
-                                    <span style={{ color: "blue" }}>
-                                      {" "}
-                                      {product.idProduct.priceOrder.toLocaleString()}
-                                    </span>
-                                  </p>
-                                </div>
-                              </CardBody>
-                            </Card>
-                          )
-                        )}
-                    </Modal.Body>
-                  </Modal>
                 </td>
-                <td>{item.payMethod}</td>
-                <td>{calculateTotalPrice(item.orderDetail)}</td>
+                <td style={{ color: "red" }}> {item.payMethod}</td>
+                <td style={{ color: "blue" }}>
+                  {calculateTotalPrice(item.orderDetail)}
+                </td>
                 <td>
                   {" "}
                   <button
                     onClick={() => handleConfirmChange(item._id)}
                     className={`btn ${
-                      item.status === "Đã xác nhận đơn" ? "btn-success" : "btn-warning"
+                      item.status === "Đang chờ xử lý"
+                        ? "btn-dark"
+                        : item.status === "Đã xác nhận đơn"
+                        ? "btn-danger"
+                        : "btn-warning"
                     }`}
-                    
                   >
-                    {item.status} 
+                    {item.status}
                   </button>
                 </td>
               </tr>
@@ -210,6 +164,42 @@ function Orderlayout(props) {
           </tbody>
         </table>
       </div>
+      <Modal show={selectedOrder !== null} onHide={closeModal}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          {selectedOrder !== null &&
+            order[selectedOrder]?.orderDetail?.map((product, index) => (
+              <Card key={index} className="mb-3">
+                <CardHeader>
+                  {product?.nameProduct} -{" "}
+                  <span>{product?.idProduct.size}</span>
+                </CardHeader>
+                <CardBody className=" ">
+                  <div className="d-flex " style={{ alignItems: "center" }}>
+                    <img
+                      src={product?.idProduct.img}
+                      style={{ width: "100px" }}
+                    />
+                    <p className="mx-3">
+                      Số lương:{" "}
+                      <span style={{ color: "red" }}>
+                        {product.idProduct.quantityOrder}
+                      </span>
+                    </p>
+
+                    <p className="mx-3">
+                      Thành tiền:
+                      <span style={{ color: "blue" }}>
+                        {" "}
+                        {product.idProduct.priceOrder.toLocaleString()}
+                      </span>
+                    </p>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

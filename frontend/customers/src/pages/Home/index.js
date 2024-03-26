@@ -70,7 +70,7 @@ function HomePage() {
             )}
             <div className="d-flex card-container ">
               {productHome
-                .filter(
+                ?.filter(
                   (product) => product.idCategory?._id === categoryData?._id
                 )
                 .slice(0, showMore ? productHome.length : 5)

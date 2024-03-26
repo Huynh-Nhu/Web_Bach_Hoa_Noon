@@ -9,12 +9,18 @@ function ModalConfetti(props) {
         centered
         dialogClassName="modal-mess-dialog"
         contentClassName="modal-mess-content"
+        
       >
-        <Modal.Header closeButton>
+        <Modal.Header className="bg-success" closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        <Modal.Body className="text-center">
+          <div>
+            <img style={{width: "50%"}} src="/assets/thank/thank-you.png" />
+       <h4>   {message}</h4>
+
+          </div>
+          </Modal.Body>
       </Modal> );
 }
 

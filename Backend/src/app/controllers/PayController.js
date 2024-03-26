@@ -94,7 +94,7 @@ const payController = {
 
       const cartIds = cart.map((item) => item._id);
       const id = cartIds.toString();
-      return res.json({ message: "Đặt hàng Tthành công", id });
+      return res.json({ message: "Đặt hàng thành công", id });
     } catch (error) {
       console.log(error);
     }

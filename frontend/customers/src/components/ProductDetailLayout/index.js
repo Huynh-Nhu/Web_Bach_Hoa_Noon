@@ -8,9 +8,8 @@ function ProductDetailLayout(props) {
   const [selectedSize, setSelectedSize] = useState();
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState("");
-  const [priceNew, setPriceNew] = useState()
+  const [priceNew, setPriceNew] = useState();
 
- 
   const handleClickSize = (size) => {
     const selectedProduct = detail?.idProductDetails?.sizeProducts.find(
       (product) => product._id === size._id
@@ -26,9 +25,9 @@ function ProductDetailLayout(props) {
         quantity: quantity,
         price: priceNew,
         id_product: detail._id,
-        id_user: props.customer?.customer?._id
+        id_user: props.customer?.customer?._id,
       };
-      addCart(productWithSize)
+      addCart(productWithSize);
     }
   };
   const handleQuantityChange = (event) => {
@@ -38,8 +37,8 @@ function ProductDetailLayout(props) {
     }
   };
   useEffect(() => {
-    const newPrice = (price * quantity  * 1000 )
-    setPriceNew(parseFloat(newPrice).toLocaleString())
+    const newPrice = price * quantity * 1000;
+    setPriceNew(parseFloat(newPrice).toLocaleString());
   }, [quantity, selectedSize]);
 
   useEffect(() => {
@@ -61,9 +60,11 @@ function ProductDetailLayout(props) {
   }
 
   if (!currentSize) {
-    return <div className="spinner-border" role="status">
-    <span className="visually-hidden">Loading...</span>
-  </div>
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
   }
 
   return (
@@ -106,9 +107,13 @@ function ProductDetailLayout(props) {
             />
           </div>
         )}
-        {/* <p>Price: {selectedSize ? selectedSize.price : currentSize.price}</p> */}
+       
         <p>{priceNew}</p>
-        <button onClick={() => handleAddToCart()}>Add to Cart</button>
+        {selectedSize.quantity > 0 ? (
+          <button onClick={() => handleAddToCart()}>Add to Cart</button>
+        ) : (
+          <button disabled>Add to Cart</button>
+        )}
       </div>
     </div>
   );

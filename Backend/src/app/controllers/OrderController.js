@@ -48,6 +48,7 @@ const orderController = {
           orderDetail: updatedOrderDetail,
           address: address,
         };
+        delete orderWithAddress.idOrderDetail;
         ordersWithAddress.push(orderWithAddress);
       }
 

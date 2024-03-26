@@ -18,8 +18,8 @@ function Shipper(props) {
   };
 
   const data = shippers?.map((shipper) => ({
-    value: shipper.idStaff._id,
-    label: ` ${shipper.idStaff.nameStaff}`,
+    value: shipper?.idStaff?._id,
+    label: ` ${shipper?.idStaff?.nameStaff}`,
   }));
 
   const customStyles = {
@@ -36,6 +36,7 @@ function Shipper(props) {
     if (selectedOption) {
       const selectedShipperId = selectedOption.value;
       handleSendShipper(selectedShipperId, selectedItems)
+      
     }
   };
 

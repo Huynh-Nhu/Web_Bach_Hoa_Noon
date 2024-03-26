@@ -92,17 +92,22 @@ function PaymentMethod(props) {
             </Modal.Header>
 
             <Modal.Body>
-              {productCartState.map((item, index) => (
-                <div key={index}>
-                  <ul>
-                    <li> {item.product.nameProduct} </li>
-                    <li>Loại: {item.size.size}</li>
-                    <li>Số lượng: {item.quantityCart}</li>
-                    <li>Giá tiền: {parseInt(item.price).toLocaleString()}</li>
-                  </ul>
-                  <p> Tổng tiền: {calculateTotalPrice()} </p>
-                </div>
-              ))}
+             <div>
+                {productCartState.map((item, index) => (
+                  <div key={index}>
+                
+                      <ul>
+                        <li> {item.product.nameProduct} </li>
+                        <li>Loại: {item.size.size}</li>
+                        <li>Số lượng: {item.quantityCart}</li>
+                        <li>Giá tiền: {parseInt(item.price).toLocaleString()}</li>
+                      </ul>
+                 
+                    </div>
+                  ))}
+             </div>
+                 
+             <p> Tổng tiền: {calculateTotalPrice().toLocaleString()} </p>
             </Modal.Body>
 
             <Modal.Footer>
